@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import {Main} from './components/Main'
 import axios from 'axios'
 
 
@@ -14,20 +15,13 @@ const App =() => {
             });
     }, []);
 
-    if (data === true) {
-        console.log(data)
-    } else {
-        return <h1>Ustalam adres IP...</h1>
-
-    }
+    return <Main />
 
 }
 
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <App />,
   document.getElementById('root')
 );
 

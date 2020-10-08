@@ -1,10 +1,37 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {CardsList} from './components/CardsList'
 import './index.css'
+import axios from 'axios'
 
 
 export function Main() {
     const [cards, setCards] = useState(SAMPLE)
+
+    useEffect(() => {
+        axios
+            .get('https://opentdb.com/api.php?amount=10')
+            .then(res=>{
+                setCards(res.data.results.map((questionItem,index) => {
+                    return {
+                        id: `${index} - ${Date.now()}`,
+                        question:decodeString(questionItem.question),
+                        answer: decodeString(questionItem.correct_answer),
+                        options:
+                            [...questionItem.incorrect_answers.map(a =>decodeString(a))
+                                , questionItem.correct_answer].sort(() => Math.random() - 0.5)
+                    }
+                }))
+            })
+    }, [])
+
+    function decodeString(str) {
+        const textArea = document.createElement('textarea')
+        textArea.innerHTML=str
+        return textArea.value
+    }
+
+
+
     return (
         <CardsList cards={cards}/>
     )

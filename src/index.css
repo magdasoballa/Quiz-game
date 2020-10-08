@@ -1,5 +1,12 @@
 body{
     background-color: #C8D0D2;
+    margin:0;
+}
+
+.card-grid{
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(auto-fill);
 }
 
 .card{
